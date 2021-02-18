@@ -1,13 +1,14 @@
 
 import React, { Fragment, Component } from 'react';
 import './App.css';
+import Navbar from './components/layout/Navbar';
 
 class App extends Component {
   foo = () => "Ebullent Trees";
 
   render() {
     const name = "Globby";
-
+    const numbers = [1 ,2,  5, 7];
     const slop = () => "Bar";
 
     const loading = false;
@@ -17,20 +18,11 @@ class App extends Component {
       return<h4>Loading...</h4>;
     }
 
-
     return (
      <div className = 'App'>
-       <h1>My App</h1>
-         {loading? <h2>Loading...</h2> : <h1>Hey, howyuh doin {showName && name}</h1>}
-         
-         <label htmlFor='name'>Name</label>
-         <h2>Content</h2>
+         <Navbar />
          </div>
-        
-          
-         
-    
-     
+      
    
     );
   }
