@@ -2,28 +2,16 @@
 import React, { Fragment, Component } from 'react';
 import './App.css';
 import Navbar from './components/layout/Navbar';
+import UserItem from './components/users/UserItem';
 
 class App extends Component {
-  foo = () => "Ebullent Trees";
-
+ 
   render() {
-    const name = "Globby";
-    const numbers = [1 ,2,  5, 7];
-    const slop = () => "Bar";
-
-    const loading = false;
-    const showName = false;
-
-    if(loading) { 
-      return<h4>Loading...</h4>;
-    }
-
     return (
      <div className = 'App'>
          <Navbar />
+         <UserItem />
          </div>
-      
-   
     );
   }
 }
