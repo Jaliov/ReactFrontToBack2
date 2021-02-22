@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import UserITem from './UserItem';
+import UserItem from './UserItem';
 
 export class Users extends Component {
     state = {
@@ -23,18 +23,22 @@ export class Users extends Component {
             avatar_url: "https://avatars.githubusercontent.com/u/3?v=4",
             html_url: "https://github.com/pjhyett"
         }
-
         ]
     }
   render() {
     return (
-      <div>
+      <div style={userStyle}>
         {this.state.users.map(user => (
-            <div key = {user.id}>{user.login}</div>
+            <UserItem key = {user.id} user={user} />  //user is props
         ))}
       </div>
     );
   }
-}
-
+ 
+  }
+  const userStyle = {
+    display: 'grid',
+    gridTemplateColumns: 'repeat(3, 1fr)',
+    gridGap: '1rem'
+  }
 export default Users;
