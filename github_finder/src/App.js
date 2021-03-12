@@ -16,13 +16,14 @@ class App extends Component {
     users: [],
     user: {},  //this will be an object
     loading: false,
-    alert: null
+    alert: null, 
+    repos: [],
   };
-
+  
   searchUsers = async (text) => {
     this.setState({ loading: true });
     const res = await axios
-      .get(`https://api.github.com/search/users?q=${text}&client_id=${process.env.REACT_APP_GITHUB_CLIENT_ID}&client_secret=${process.env.REACT_APP_GITHUB_CLIENT_SECRET}`);
+      .get(`https://api.github.com/search/users?q=${text}&client_id=${'Authorization: process.env.REACT_APP_GITHUB_CLIENT_ID}&client_secret=${process.env.REACT_APP_GITHUB_CLIENT_SECRET'}`);
 
     this.setState({ users: res.data.items, loading: false });
 
@@ -31,13 +32,22 @@ class App extends Component {
   //Get single Github user
   getUser =  async (username) => {
     this.setState({ loading: true });
-    const res = await axios.get(`https://api.github.com/users/${username}?client_id=${process.env.REACT_APP_GITHUB_CLIENT_ID}&client_secret=${process.env.REACT_APP_GITHUB_CLIENT_SECRET}
-    `);
-     
+    const res = await axios
+      .get(`${username}?client_id=${'Authorization:process.env.REACT_APP_GITHUB_CLIENT_ID}&client_secret=${process.env.REACT_APP_GITHUB_CLIENT_SECRET'} https://api.github.com/users}
+      `);
 
     this.setState({ user: res.data, loading: false });
+  };
 
-  }
+  //Get user repos
+  getUserRepos = async (username) => {
+    this.setState({ loading: true });
+    const res = await axios
+      .get(`${username}/repos?per_page=5&sort=created:asc&client_id=${'Authorization:process.env.REACT_APP_GITHUB_CLIENT_ID}&client_secret=${process.env.REACT_APP_GITHUB_CLIENT_SECRET'} https://api.github.com/users}
+      `);
+
+    this.setState({ user: res.data, loading: false });
+  };
 
   //CLear users from state
   clearUsers = () => this.setState({ users: [], loading: false });
@@ -49,7 +59,7 @@ class App extends Component {
   }
 
   render() {
-    const { users, user, loading } = this.state
+    const { users, user, loading, repos } = this.state
    
     return (
     
@@ -75,10 +85,13 @@ class App extends Component {
           <Route exact path='/user/:login'
            render={props => (
             <User 
-            {...props} 
-            getUser={this.getUser}  
+            {...props } 
+            getUser= {this.getUser}
+            getUserRepos= {this.getUserRepos}    
             user={user} 
-            loading={loading} />
+            loading={loading}
+            repos={repos}
+             />
             )}
             />
            </Switch>
